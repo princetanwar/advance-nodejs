@@ -1,0 +1,24 @@
+{
+  "name": "advance-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev ./src/index.ts",
+    "start": "node ./dist/index.js",
+    "create-mock": "ts-node-dev ./src/createMockData.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
+  }
+}
