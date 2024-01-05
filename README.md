@@ -99,3 +99,50 @@ Creating a custom transform stream in Node.js involves calling the Transform cla
 ```
 
 Fun Fact:- transform is duplex stream.
+
+### duplex stream
+
+Creating a custom duplex stream involves extending the Duplex class from the stream module and implementing both the _read and _write methods. The _read method is responsible for producing data to be read, and the _write method is responsible for processing incoming data.
+
+
+```diff
+
++ class Throttle extends Duplex {
++   delay: number;
++   constructor(ms: number) {
++     super();
++     this.delay = ms;
++   }
++   _read(size: number): void {
++   }
+
+
++   _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null | undefined) => void): void {
++     this.push(chunk);
++     setTimeout(() => {
++       callback(null);
++     }, this.delay);
++   }
++ 
++ }
+```
+
+above is a duplex stream that throttle the read's by calling the callback(that single for work complete) after specified delay in _write method.
+
+
+helpful tip -> use pipe method when transfer data from read stream to write stream/transfer stream/duplex stream. 
+
+```diff
+readStream.pipe(write/transfer/duplex Stream/)
+```
+
+example of pipe is below
+
+```diff
+ customReadStream.pipe(myThrottle).pipe(customWritableStream)
+```
+
+below are some helpful streams 
+
+* createReadStream from fs module to read file content from disk.
+* createWriteStream from fs module to write data into file. 
