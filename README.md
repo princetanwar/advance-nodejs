@@ -1,3 +1,37 @@
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/princetanwar/advance-nodejs.git
+```
+
+Go to the project directory
+
+```bash
+  cd advance-nodejs
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Create Mock data for services.
+
+```bash
+  npm run create-mock
+```
+
+Start the dev server
+
+```bash
+  npm run dev
+```
+
+
+
 # Streams
 
 node.js streams allow use to handle large data efficiently. streams pass data in chunks so it can be processed as it come, instead of loading complete data in memory then processing it. Node.JS has first class support for streams.
@@ -187,3 +221,28 @@ console.log(combinedBuffer.toString()); // Output: "Hello, world!"
 ```
 
 Note - the data we get in streams as chunks is also a buffer.
+
+
+
+## Routes Reference
+
+#### Get A Big file using streams
+
+```http
+  GET /streams/stream-big-file
+```
+
+#### Get A Big file using callback 
+
+```http
+  GET /streams/big-file
+```
+
+Note: non-blocking but load complete file in memory before sending to client.
+
+#### Get A File using streams and transform
+
+```http
+  GET /streams/stream-big-file-uppercase
+```
+return a big file using stream and transform to send manipulated content without writing to the disk.
