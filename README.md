@@ -255,3 +255,19 @@ below show the difference between http and websocket. in http/https the client a
 <img src='https://miro.medium.com/v2/resize:fit:640/format:webp/1*9OAhDpzdgtOzlr-tr1sqkg.png'>
 
 in node.js we can use socket.io to make web-socket setup easy.
+
+## cron jobs
+
+cron jobs are those jobs that are going to run in future at specified time after a regular interval. like some task is going to be run on every month's 1st.
+
+to create in nodejs we can use a module called "node-cron" below is the syntax for create a cron job that is going to run on every month's 1st at 1 pm.
+
+```diff
+
++ const cron = require('node-cron');
+
++ cron.schedule('00 13 1 * *', () => {
++   console.log('running a task every minute');
++ });
+
+```
