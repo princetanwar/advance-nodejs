@@ -1,23 +1,19 @@
 import express from "express";
-import 'dotenv/config'
-
+import "dotenv/config";
 
 import streamRouter from "./modules/node_streams";
-
+import { setupSocket } from "./modules/sockets";
 
 const main = () => {
   const app = express();
+  const PORT = process.env.PORT || 8080;
+  const httpServer = app.listen(PORT, () => {
+    console.log(`server running on PORT ${PORT}`);
+  });
+
   app.use("/streams", streamRouter);
 
-  app.get("/", (req, res) => {
-    res.send("hello world");
-  });
-
-  const PORT = process.env.PORT || 8080;
-  app.listen(PORT,()=>{
-
-	console.log(`server running on PORT ${PORT}`)
-  });
+  setupSocket({ httpServer, app });
 };
 
 main();
