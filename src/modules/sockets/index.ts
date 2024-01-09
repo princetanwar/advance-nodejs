@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export const setupSocket = ({ httpServer, app }: IProps) => {
-  app.get("/", (_, res) => {
+  app.get("/websocket/chat", (_, res) => {
     res.sendFile(path.join(__dirname, "../../html/index.html"));
   });
 

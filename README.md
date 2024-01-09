@@ -30,7 +30,37 @@ Start the dev server
   npm run dev
 ```
 
+## Routes Reference
 
+#### Get A Big file using streams
+
+```http
+  GET /streams/stream-big-file
+```
+
+#### Get A Big file using callback
+
+```http
+  GET /streams/big-file
+```
+
+Note: non-blocking but load complete file in memory before sending to client.
+
+#### Get A File using streams and transform
+
+```http
+  GET /streams/stream-big-file-uppercase
+```
+
+return a big file using stream and transform to send manipulated content without writing to the disk.
+
+#### Chat with other websocket client
+
+```http
+  GET /websocket/chat
+```
+
+send messages and receive message from other connected websocket client.
 
 # Streams
 
@@ -38,18 +68,18 @@ node.js streams allow use to handle large data efficiently. streams pass data in
 
 NOTE:- every stream class is inherited from Events class.
 
-* express request and response object are also streams object, readable and writable streams respectively.
+- express request and response object are also streams object, readable and writable streams respectively.
 
 ## streams are mainly of 4 types
-  1. readable streams
-  2. writeable streams
-  3. duplex stream
-  4. transform stream
+
+1. readable streams
+2. writeable streams
+3. duplex stream
+4. transform stream
 
 ### readable streams
 
-
-Creating a custom readable stream in Node.js involves calling Readable Class  from the stream module and implementing the _read method. The _read method is responsible for producing data to be read from the stream.
+Creating a custom readable stream in Node.js involves calling Readable Class from the stream module and implementing the \_read method. The \_read method is responsible for producing data to be read from the stream.
 
 node has several builtin streams of all kind.
 
@@ -67,7 +97,7 @@ node has several builtin streams of all kind.
 +     this.push(null); // sending null will end the stream.
 +   },
 + });
- 
+
 + customReadStream.on("data", (chunk) => {
 +   console.log({ chunk: chunk.toString() });
 + });
@@ -83,11 +113,10 @@ node has several builtin streams of all kind.
 
 Creating a custom writable stream in Node.js involves calling the Writable class from the stream module and implementing the write method. The write method is responsible for processing and handling incoming data.
 
-
 ```diff
 
 + import {  Writable } from "stream";
- 
+
 + const customWritableStream = new Writable({
 +   write(chunk, encoding, callback) {
 +     console.log({ chunk: chunk.toString(), encoding });
@@ -95,7 +124,7 @@ Creating a custom writable stream in Node.js involves calling the Writable class
 + //  Call the callback to signal that processing is complete. pass error if something went wrong.
 +   },
 + });
- 
+
 
 + customWritableStream.write("1",(er) =>{
   // handle error here
@@ -105,11 +134,10 @@ Creating a custom writable stream in Node.js involves calling the Writable class
 + customWritableStream.write("4");
 
 ```
+
 ### transform streams
 
-
 Creating a custom transform stream in Node.js involves calling the Transform class from the stream module and implementing the transform method. The transform method is responsible for modifying or transforming the incoming data.
-
 
 ```diff
 
@@ -118,14 +146,14 @@ Creating a custom transform stream in Node.js involves calling the Transform cla
 + const upperCase = new Transform({
 + 	transform(chunk, encoding, callback) {
 + 		let upperCase = chunk.toString().toUpperCase();
-+ 	  callback(null,upperCase)	
++ 	  callback(null,upperCase)
 + 	},
 + })
 
 
 + upperCase.write('hello')
 + upperCase.write('world')
- 
+
 + upperCase.on('data',(chunk) =>{
 + 	console.log({data: chunk.toString()})
 + })
@@ -136,8 +164,7 @@ Fun Fact:- transform is duplex stream.
 
 ### duplex stream
 
-Creating a custom duplex stream involves extending the Duplex class from the stream module and implementing both the _read and _write methods. The _read method is responsible for producing data to be read, and the _write method is responsible for processing incoming data.
-
+Creating a custom duplex stream involves extending the Duplex class from the stream module and implementing both the \_read and \_write methods. The \_read method is responsible for producing data to be read, and the \_write method is responsible for processing incoming data.
 
 ```diff
 
@@ -157,14 +184,13 @@ Creating a custom duplex stream involves extending the Duplex class from the str
 +       callback(null);
 +     }, this.delay);
 +   }
-+ 
++
 + }
 ```
 
-above is a duplex stream that throttle the read's by calling the callback(that single for work complete) after specified delay in _write method.
+above is a duplex stream that throttle the read's by calling the callback(that single for work complete) after specified delay in \_write method.
 
-
-helpful tip -> use pipe method when transfer data from read stream to write stream/transfer stream/duplex stream. 
+helpful tip -> use pipe method when transfer data from read stream to write stream/transfer stream/duplex stream.
 
 ```diff
 readStream.pipe(write/transfer/duplex Stream/)
@@ -176,11 +202,10 @@ example of pipe is below
  customReadStream.pipe(myThrottle).pipe(customWritableStream)
 ```
 
-below are some helpful streams 
+below are some helpful streams
 
-* createReadStream from fs module to read file content from disk.
-* createWriteStream from fs module to write data into file. 
-
+- createReadStream from fs module to read file content from disk.
+- createWriteStream from fs module to write data into file.
 
 # Buffer
 
@@ -188,7 +213,6 @@ Buffer is a impotent part of nodeJS and it allow nodejs to handle RAW binary dat
 Binary data refers to data that consists of binary values, as opposed to text data, which consists of characters and symbols. Examples of binary data include images, audio and video files, and raw data from a network.
 
 Why is this important? The reason is that when you work with binary data, you often need to manipulate it in-memory, which can be difficult and inefficient using JavaScript’s standard data structures. For example, you might need to concatenate two binary data streams, slice a large binary file into smaller pieces, or encode and decode binary data into different character encodings. This is where Buffers come in: they provide a fast and efficient way to store and manipulate binary data in Node.js.
-
 
 to store data in buffer we first need to create a Buffer Object using the Buffer constructor.
 if we might create a buffer of fixed size (bytes) like this. and it will have the default value 0 for every byte,
@@ -222,27 +246,12 @@ console.log(combinedBuffer.toString()); // Output: "Hello, world!"
 
 Note - the data we get in streams as chunks is also a buffer.
 
+## Web Sockets
 
+Web sockets allow us to create bidirectional full duplex connection using that we can send from any end of the connection to the other end anytime and any amount of data.
 
-## Routes Reference
+below show the difference between http and websocket. in http/https the client always have to ask for the information then server send the data and close the connection. but in case of websocket once the connection is made the server can send data to client without any problem and client can ask for data as many time as it want without creating a new connection.
 
-#### Get A Big file using streams
+<img src='https://miro.medium.com/v2/resize:fit:640/format:webp/1*9OAhDpzdgtOzlr-tr1sqkg.png'>
 
-```http
-  GET /streams/stream-big-file
-```
-
-#### Get A Big file using callback 
-
-```http
-  GET /streams/big-file
-```
-
-Note: non-blocking but load complete file in memory before sending to client.
-
-#### Get A File using streams and transform
-
-```http
-  GET /streams/stream-big-file-uppercase
-```
-return a big file using stream and transform to send manipulated content without writing to the disk.
+in node.js we can use socket.io to make web-socket setup easy.
