@@ -271,3 +271,9 @@ to create in nodejs we can use a module called "node-cron" below is the syntax f
 + });
 
 ```
+
+#### use case
+
+- Scheduled backups or data synchronization between different systems.
+- Regular system maintenance tasks like log rotation or database cleanup.
+- reporting tasks.
