@@ -1,0 +1,10 @@
+POST http://localhost:8080/auth/login HTTP/1.1
+content-type: application/json
+
+
+{"email":"test@mail.com","password": "123"}
+
+###
+
+GET  http://localhost:8080/auth/secure-file HTTP/1.1
+authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDUzMTU3NDB9.jVd6llVfpor5gWcNLFOABbnHunU05P3NrEOhODOVK7A 
