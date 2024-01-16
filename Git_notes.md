@@ -37,3 +37,11 @@ run rebase with "git rebase master"
 ```
 
 now we will not get any merge conflict when merging to master because if conflicts are there they will appear when we do rebase.
+
+## Git Add Patch
+
+some times a single file have changes related to two things and we want to commit those changes separately without re-writing the code again. to make this work we can use git's patch add feature. run below command then git show to changes chunks/hunk and it will ask you that if we have to include it or not.
+
+```
+git add -p file_path
+```
