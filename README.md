@@ -414,6 +414,8 @@ In micro-services we create a individual application component as a service that
 
 micro services allow us to use any tech stack for any service. like the payment service can we written in java and cart service in node.js and product service in rust.
 
+Note - it's recommended that each service should have it's own DB if needed. one service should not use other service DB directly.
+
 when setup the micro services we have to setup a communication channel for services that they will use to communicate with each other. the communication channel we can setup are below
 
 - http/https - (synchronous communication)
