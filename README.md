@@ -76,4 +76,6 @@ send messages and receive message from other connected websocket client.
 
 ## <a href="/docs/micro-services.md">Micro-Services </a>
 
+## <a href="/docs/nodejs-debugging.md">Node.js Debugging</a>
+
 ## <a href="/docs/Git_notes.md">Git Tips/notes<a>
