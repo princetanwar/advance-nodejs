@@ -11,8 +11,8 @@ git clone https://github.com/princetanwar/advance-nodejs.git
 above will create a repository. now we can checkout to multiple commits/branch. to checkout to a new branch go to project root and then run "git worktree add branch_name" and this will create a new folder/work tree then cd to that folder and you can start working. all the git feature will work under that work tree. below are some help full command for git worktree
 
 - git worktree add
-  - git worktree add branch_name/commit_hash folder_path_where_to_store_the_tree
-  - git worktree add local_branch_name/commit_hash folder_path_where_to_store_the_tree origin/branch_name
+  - git worktree add `branch_name/commit_hash` `folder_path_where_to_store_the_tree`
+  - git worktree add `local_branch_name/commit_hash` `folder_path_where_to_store_the_tree` `origin/branch_name`
 - git worktree remove to delete the local branch
 - git worktree list
 
