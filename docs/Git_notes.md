@@ -47,3 +47,14 @@ some times a single file have changes related to two things and we want to commi
 ```
 git add -p file_path
 ```
+
+
+## Git Bisect
+
+
+`git bisect` is a Git command that helps you find the specific commit that introduced a bug by performing a binary search through your project's history. It efficiently narrows down the range of commits to pinpoint the first bad commit.
+
+`git bisect start`
+`git bisect bad`
+`git bisect good <commit-hash>`
+
